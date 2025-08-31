@@ -86,7 +86,7 @@ int locate(List L, int data){
 	int i;
 	for( i =0 ; i < L.count; i++){
 		if(L.elem[i] == data){
-			return 1;
+			return i;
 		}
 			
 	}
@@ -95,12 +95,22 @@ int locate(List L, int data){
 	
 }
 
+void display(List L) {
+    int i;
+    for(i = 0; i < L.count; i++) {
+        printf("%d\n", L.elem[i]);
+    }
+}
+
+	
 int main ( ){
     List L;
     
     L = initialize(L);
 
     int i,pos, data, size;
+
+	printf("VARIATION 1\n");
     
     printf("Input size: ");
     scanf("%d",&size);
@@ -114,11 +124,20 @@ int main ( ){
 	
 	L.count= size;
 	
+
 	int repeat=0;
+
+	
 	
 		while(repeat != 6){
 			
-			printf("\n\nWHAT TO DO: \n[1] INSERT AT POS\n[2] DELETE AT POS\n[3] LOCATE \n[4] INSERT SORTED \n[5] DISPLAY LIST \n\n");
+			printf("\n\nWHAT TO DO: \n"
+			"[1] INSERT AT POS\n"
+			"[2] DELETE AT POS\n"
+			"[3] LOCATE \n"
+			"[4] INSERT SORTED \n"
+			"[5] DISPLAY LIST\n"
+			"[6] EXIT \n\n");
 			scanf("%d",&repeat);
 			
 			
@@ -150,7 +169,7 @@ int main ( ){
 			    scanf("%d",&data);
 			    
 			    if(locate(L,data)){
-			    	printf("Found!");
+			    	printf("Found at index %d!",locate(L,data));
 				} else {
 					printf("Not found!");
 				}
@@ -167,11 +186,7 @@ int main ( ){
 				}
 				
 				if(repeat == 5){
-					printf("\nDISPLAYING ...... \n");
-					for(i=0; i < L.count;i++){
-						printf("%d\n",L.elem[i]);
-						
-					}
+					display(L);
 				}
 			
 			
