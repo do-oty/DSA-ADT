@@ -14,9 +14,17 @@ void initialize(List* L) {
     L->size = MAX;
 }
 
+void resize(List* L) {
+    L->size = L->size * 2;
+    L->elem = (int*)realloc(L->elem, L->size * sizeof(int));
+}
+
 void insertPos(List* L, int data, int pos) {
     int i;
-    
+    if(L->count >= L->size){
+    	resize(L);
+     printf("List resized to %d", L->size);
+	}
     if (pos >= L->count) {
         L->elem[pos] = data;
         L->count++;
@@ -32,6 +40,11 @@ void insertPos(List* L, int data, int pos) {
 void insertSorted(List* L, int data) {
     int i;
     int pos = L->count;
+    
+     if(L->count >= L->size){
+    	resize(L);
+    	 printf("List resized to %d", L->size);
+	}
     
     for(i = 0; i < L->count-1; i++) {
         if(data < L->elem[i]) {
@@ -83,10 +96,7 @@ int retrieve(List* L, int pos) {
     return 0;
 }
 
-void resize(List* L) {
-    L->size = L->size * 2;
-    L->elem = (int*)realloc(L->elem, L->size * sizeof(int));
-}
+
 
 void makeNull(List* L) {
     free(L->elem);

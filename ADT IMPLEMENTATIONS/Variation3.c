@@ -8,6 +8,7 @@ typedef struct {
     int size;
 } List;
 
+
 List initialize(List L) {
     L.count = 0;
     L.elem = (int*)malloc(MAX * sizeof(int));
@@ -15,9 +16,20 @@ List initialize(List L) {
     return L;
 }
 
+List resize(List L) {
+    L.size = L.size * 2;
+    L.elem = (int*)realloc(L.elem, L.size * sizeof(int));
+    
+    return L;
+}
+
+
 List insertPos(List L, int data, int pos) {
     int i;
-    
+       if(L.count >= L.size){
+    	resize(L);
+     printf("List resized to %d", L.size);
+	}
     if (pos >= L.count) {
         L.elem[pos] = data;
         L.count++;
@@ -34,7 +46,10 @@ List insertPos(List L, int data, int pos) {
 List insertSorted(List L, int data) {
     int i;
     int pos = L.count;
-    
+       if(L.count >= L.size){
+    	resize(L);
+     printf("List resized to %d", L.size);
+	}
     for(i = 0; i < L.count-1; i++) {
         if(data < L.elem[i]) {
             pos = i;
@@ -72,6 +87,9 @@ int locate(List L, int data) {
     return 0;
 }
 
+
+
+
 int main() {
     List L;
     
@@ -93,7 +111,7 @@ int main() {
     
     int repeat = 0;
     
-    while(repeat != 6) {
+    while(repeat != 7) {
         printf("\n\nWHAT TO DO: \n"
                "[1] INSERT AT POS\n"
                "[2] DELETE AT POS\n"
@@ -143,6 +161,11 @@ int main() {
             for(i = 0; i < L.count; i++) {
                 printf("%d\n", L.elem[i]);
             }
+        }
+        
+          if(repeat == 6) {
+            L=resize(L);
+            printf("List resized to %d", L.size);
         }
     }
     
