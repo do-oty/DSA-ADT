@@ -97,16 +97,17 @@ void deletePos(List *L, int pos){
 		
 	}
 	
-			
+	Node *trav = L->head;
 	Node *temp = L->head;
 
 	if(pos == 0){
 	
 	L->head = temp->next;
-	printf("Complted deletion!");
+	printf("Completed deletion!");
 	L->count--;
 	
-	}  if(pos == L->count){
+	} 
+	 if(pos == L->count){
 		for(; trav != NULL  ;  trav= trav->next);
 		trav->next= NULL;
 		printf("Completed deletion!");
@@ -114,8 +115,8 @@ void deletePos(List *L, int pos){
 		
 	}else{
 		
-		
-	Node *trav = L->head;
+	trav = L->head;
+
 	int i;
 	
 	for(i; trav != NULL && i < pos-1  ;  trav= trav->next, i++);
