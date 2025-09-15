@@ -47,12 +47,32 @@ void enqueue(Queue* Q, int elem){
 		Q->list.items[0]=elem;
 		Q->list.count++;		 
 	} else{
-		
-		Q->list.items[(Q->rear+1) % MAX] = elem;
+		Q->rear= (Q->rear+1) % MAX;
+		Q->list.items[Q->rear] = elem;
 		Q->list.count++;
 	}
 	
 }
+
+
+
+int dequeue(Queue* Q){
+	
+	if(Q->list.count == 0){
+		printf("EMPTY QUEUE!");
+		return -1;
+	}
+	
+	int prevFront = Q->list.items[Q->front];
+
+	Q->front = (Q->front + 1) % MAX;
+	Q->list.count--;
+	
+	
+	return prevFront;
+	
+}
+
 
 
 void display(Queue* Q){
@@ -75,6 +95,15 @@ void display(Queue* Q){
 
 }
 
+int front(Queue* Q){
+	
+	if(Q->list.count == 0){
+		return -1;
+	}
+	return  Q->list.items[Q->front];
+	
+}
+
 
 
 
@@ -89,7 +118,7 @@ int main (){
   while(repeat != 5) {
         printf("\n\nWHAT TO DO: \n"
                "[1] ENQUEUE\n"
-               "[2]	DEQUEUE\n"
+               "[2] DEQUEUE\n"
         	   "[3] CHECK FRONT\n"	
                "[4] DISPLAY \n"
                "[5] EXIT \n\n");
@@ -101,6 +130,16 @@ int main (){
    			
    			enqueue(Q,elem);
             printf("Succesfully queued!");
+        }
+         if (repeat == 2) {
+   		
+   			elem= dequeue(Q);
+            printf("Succesfully dequeued %d!", elem);
+        }
+        if (repeat == 3) {
+   			elem= front(Q);
+            printf("Front is %d!", elem);
+   		
         }
          if (repeat == 4) {
    			display(Q);
