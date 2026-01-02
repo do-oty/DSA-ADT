@@ -3,107 +3,123 @@
 #define MAX 10
 
 
+// typedef struct{
+	
+// 	int items[MAX];
+// 	int count;
+// }List;
+
+// typedef struct {
+// 	List list;
+// 	int front;
+// 	int rear;
+	
+	
+// }Queue;
+
+typedef struct node{
+	int data;
+	struct node* next;
+}Node;
+
 typedef struct{
-	
-	int items[MAX];
+	Node* front;
+	Node* rear;
 	int count;
-}List;
-
-typedef struct {
-	List list;
-	int front;
-	int rear;
-	
-	
 }Queue;
-
-
 
 Queue* initialize(){
 	
 	Queue *Q= (Queue*)malloc(sizeof(Queue));
-	
-	Q->front=-1;
-	Q->rear=-1;
-	Q->list.count=0;
-	
-	
+	Q->front=NULL;
+	Q->rear=NULL;
+	Q->count=0;
 	return Q;
+
 
 	
 }
 
 
 void enqueue(Queue* Q, int elem){
-	
-	if(Q->list.count == MAX){
-		printf("FULL QUEUE!");
-		return;
-	}
-	
-	if(Q->list.count == 0){
-		Q->front=0;
-		Q->rear=0;
-		Q->list.items[0]=elem;
-		Q->list.count++;		 
-	} else{
-		Q->rear= (Q->rear+1) % MAX;
-		Q->list.items[Q->rear] = elem;
-		Q->list.count++;
-	}
-	
+    Node* newNode = (Node*)malloc(sizeof(Node));
+ 
+    newNode->data = elem;
+    newNode->next = NULL;
+
+    if(isEmpty(Q)){
+        Q->front = newNode;
+        Q->rear = newNode;
+    } else {
+        Q->rear->next = newNode;   
+        Q->rear = newNode;
+    }
+    Q->count++;
 }
 
 
 
 int dequeue(Queue* Q){
-	
-	if(Q->list.count == 0){
+
+	Node* temp = Q->front;
+
+	if(isEmpty(Q)){
 		printf("EMPTY QUEUE!");
 		return -1;
 	}
 	
-	int prevFront = Q->list.items[Q->front];
+	int prevFront = temp->data;
 
-	Q->front = (Q->front + 1) % MAX;
-	Q->list.count--;
+
+	Q->front = temp->next;
+	Q->count--;
+
+
 	
 	
 	return prevFront;
 	
+
 }
+	
+
+
 
 
 
 void display(Queue* Q){
-	
-	int i=0;
-	
+
+	Node* trav= Q->front;
 	printf("DISPLAYING.....\n\n");
 	
-	for(i= Q->front; i < Q->list.count - 1; i++){
-		printf("%d\n",Q->list.items[i]);
+	for(trav = Q->front; trav != Q->rear->next; trav = trav->next){
+		printf("%d\n",trav->data );
+		
 	}	
 	
-	if(Q->rear < Q->front){
-		for (i= Q->rear; i < Q->front - 1; i++){
-		printf("%d\n",Q->list.items[i]);
-		
-		}
-		
-	}
 
 }
+	
+
+
 
 int front(Queue* Q){
-	
-	if(Q->list.count == 0){
-		return -1;
-	}
-	return  Q->list.items[Q->front];
-	
-}
 
+	if(isEmpty(Q)){
+		printf("EMPTY QUEUE!");
+		return -1;
+		
+	}
+	return Q->front->data;
+}
+	
+
+int isEmpty(Queue* Q){
+	if(Q->front == NULL ){
+		return 1;
+	}
+	return 0;
+}
 
 
 
@@ -133,16 +149,25 @@ int main (){
         }
          if (repeat == 2) {
    		
-   			elem= dequeue(Q);
+   		elem= dequeue(Q);
+
+			if(elem != -1){
             printf("Succesfully dequeued %d!", elem);
+			}
         }
         if (repeat == 3) {
    			elem= front(Q);
-            printf("Front is %d!", elem);
+			if(elem != -1){
+            printf("Front is %d!!", elem);
+			}
    		
         }
          if (repeat == 4) {
-   			display(Q);
+			if(!isEmpty(Q)){
+   				display(Q);
+			}	else{
+				printf("EMPTY QUEUE!");
+			}
             
         }
         

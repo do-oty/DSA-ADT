@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/kyle_zenarosa/Documents/Code/DSA-ADT/ADT IMPLEMENTATIONS/STACK",
-      "program": "/home/kyle_zenarosa/Documents/Code/DSA-ADT/ADT IMPLEMENTATIONS/STACK/build/Debug/outDebug",
+      "cwd": "/home/kyle_zenarosa/Documents/Code/DSA-ADT/ADT IMPLEMENTATIONS",
+      "program": "/home/kyle_zenarosa/Documents/Code/DSA-ADT/ADT IMPLEMENTATIONS/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
